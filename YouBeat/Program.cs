@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace YouBeat
 {
@@ -13,7 +14,10 @@ namespace YouBeat
         [STAThread]
         static void Main()
         {
-            using (var game = new Game1())
+            using (Game game = new YouBeat()
+            {
+                IsFixedTimeStep = false
+            })
                 game.Run();
         }
     }
