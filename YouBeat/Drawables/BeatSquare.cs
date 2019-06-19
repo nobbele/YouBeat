@@ -57,7 +57,12 @@ namespace YouBeat.Drawables
             double trackPosition = map.Track.GetPosition();
 
             if (map.HitWindow.IsInside(BeatTime, trackPosition) == 1)
+            {
                 Note = null;
+                playResult.Accuracies[MapIndex] = Accuracy.None;
+                Console.WriteLine("Received Scoring: " + Accuracy.None);
+                return;
+            }
 
             double progress = (trackPosition - SpawnTime) / (BeatTime - SpawnTime);
             color = Color.Lerp(Color.Blue, Color.Red, (float)progress);

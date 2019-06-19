@@ -45,7 +45,12 @@ namespace YouBeat
             new BeatmapNote(5077, 3),
             new BeatmapNote(6457, 4),
             new BeatmapNote(7664, 5),
-        }, new AudioTrack("yanaginagi - Harumodoki.mp3"), 3, 10);
+            new BeatmapNote(8871, 6),
+            new BeatmapNote(8871 + (1207 * 1), 7),
+            new BeatmapNote(8871 + (1207 * 2), 8),
+            new BeatmapNote(8871 + (1207 * 3), 9),
+            new BeatmapNote(8871 + (1207 * 4), 10),
+        }, new AudioTrack("yanaginagi - Harumodoki.mp3"), 3, 7);
 
         public Keys[] keys = new Keys[]
         {
