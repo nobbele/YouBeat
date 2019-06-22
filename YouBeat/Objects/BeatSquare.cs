@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using YouBeat.Audio;
 using YouBeat.Beatmaps;
 
-namespace YouBeat.Drawables
+namespace YouBeat.Objects
 {
     public class BeatSquare : IDrawable, IUpdatable
     {
@@ -60,6 +55,7 @@ namespace YouBeat.Drawables
             {
                 Note = null;
                 playResult.Accuracies[MapIndex] = Accuracy.None;
+                playResult.NotesClicked++;
                 Console.WriteLine("Received Scoring: " + Accuracy.None);
                 return;
             }
@@ -73,6 +69,7 @@ namespace YouBeat.Drawables
                 double diff = Math.Abs(Note.position - trackPosition); 
                 Note = null;
                 playResult.Accuracies[MapIndex] = AccuracyHelper.FromPercent(wrongPercentage);
+                playResult.NotesClicked++;
                 Console.WriteLine("Received Scoring: " + AccuracyHelper.FromPercent(wrongPercentage));
             }
         }

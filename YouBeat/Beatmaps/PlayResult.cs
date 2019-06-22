@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace YouBeat.Beatmaps
+﻿namespace YouBeat.Beatmaps
 {
     public class PlayResult
     {
         public Accuracy[] Accuracies;
+        public int NotesClicked = 0;
 
         public PlayResult(int noteCount)
         {

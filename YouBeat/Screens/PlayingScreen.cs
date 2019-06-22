@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using YouBeat.Beatmaps;
-using YouBeat.Drawables;
+using YouBeat.Objects;
 
 namespace YouBeat.Screens
 {
@@ -20,9 +18,11 @@ namespace YouBeat.Screens
         {
             Map = map;
             playResult = new PlayResult(map.BeatmapNotes.Length);
+            accuracyDisplay = new AccuracyDisplay(playResult);
         }
 
         DrawableContainer<BeatSquare> beatSquares = new DrawableContainer<BeatSquare>();
+        AccuracyDisplay accuracyDisplay;
 
         public void Load()
         {
@@ -67,11 +67,13 @@ namespace YouBeat.Screens
             }
 
             beatSquares.Update(gameTime);
+            accuracyDisplay.Update(gameTime);
         }
 
         public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
         {
             beatSquares.Draw(rect.PercentagePoint(0.25f, 0.25f, 0.5f, 0.5f), spriteBatch, gameTime);
+            accuracyDisplay.Draw(rect.PercentagePoint(0.5f, 0.1f, 0.1f, 0.1f), spriteBatch, gameTime);
         }
 
          

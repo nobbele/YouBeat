@@ -49,10 +49,11 @@
     <Compile Include="Beatmaps\BeatmapNote.cs" />
     <Compile Include="Beatmaps\HitWindow.cs" />
     <Compile Include="Beatmaps\PlayResult.cs" />
-    <Compile Include="Drawables\BeatSquare.cs" />
-    <Compile Include="Drawables\DrawableContainer.cs" />
-    <Compile Include="Drawables\IDrawable.cs" />
-    <Compile Include="Drawables\SpecialOneBeatSquare.cs" />
+    <Compile Include="Objects\AccuracyDisplay.cs" />
+    <Compile Include="Objects\BeatSquare.cs" />
+    <Compile Include="Objects\DrawableContainer.cs" />
+    <Compile Include="IDrawable.cs" />
+    <Compile Include="Objects\SpecialOneBeatSquare.cs" />
     <Compile Include="ILoadable.cs" />
     <Compile Include="RectangleExtensionMethods.cs" />
     <Compile Include="Screens\IScreen.cs" />

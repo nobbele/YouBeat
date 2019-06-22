@@ -18,7 +18,9 @@ namespace YouBeat
             {
                 IsFixedTimeStep = false
             })
+            {
                 game.Run();
+            }
         }
     }
 }
