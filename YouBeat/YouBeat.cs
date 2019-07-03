@@ -1,7 +1,11 @@
 ﻿using ManagedBass;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using YouBeat.Audio;
 using YouBeat.Beatmaps;
 using YouBeat.Screens;
@@ -56,9 +60,14 @@ namespace YouBeat
             Keys.NumPad0, Keys.None,    Keys.Decimal,
         };
 
+        public FontStore fontStore;
+
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            fontStore = new FontStore(new ContentManager(Content.ServiceProvider, Path.Combine(Content.RootDirectory, "Fonts")));
+            fontStore.Add("Arial");
 
             AudioTrack.EngineInit();
             AudioTrack.GlobalVolume = 0.5;
@@ -75,8 +84,25 @@ namespace YouBeat
         {
             base.Update(gameTime);
 
+#if DEBUG_RELEASE
+            updateErrorMessages.Clear();
+
+            try
+            {
+#endif
             currentScreen.Update(gameTime);
+#if DEBUG_RELEASE
+            }
+            catch (Exception e)
+            {
+                updateErrorMessages.Add(e);
+            }
+#endif
+
         }
+
+        private List<Exception> updateErrorMessages = new List<Exception>();
+        private List<Exception> drawErrorMessages = new List<Exception>();
 
         protected override void Draw(GameTime gameTime)
         {
@@ -84,7 +110,30 @@ namespace YouBeat
 
             spriteBatch.Begin();
 
-            currentScreen.Draw(ViewportBounds, spriteBatch, gameTime);
+#if DEBUG_RELEASE
+            drawErrorMessages.Clear();
+
+            try
+            {
+#endif
+                currentScreen.Draw(ViewportBounds, spriteBatch, gameTime);
+
+#if DEBUG_RELEASE
+            }
+            catch (Exception e)
+            {
+                drawErrorMessages.Add(e);
+            }
+
+            foreach (Exception error in updateErrorMessages)
+            {
+                spriteBatch.DrawString(fontStore["Arial"], $"Update Error '{error}'", ViewportBounds.PercentagePoint(0, 0), Color.Red);
+            }
+            foreach (Exception error in drawErrorMessages)
+            {
+                spriteBatch.DrawString(fontStore["Arial"], $"Draw Error '{error}'", ViewportBounds.PercentagePoint(0, 0), Color.Red);
+            }
+#endif
 
             spriteBatch.End();
 

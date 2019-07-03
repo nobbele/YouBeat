@@ -1,11 +1,16 @@
-﻿using YouBeat.Audio;
+﻿using System;
+using YouBeat.Audio;
 
 namespace YouBeat.Beatmaps
 {
+    public class LoadedLazy<T> : Lazy<T> where T : ILoadable
+    {
+
+    }
     public class BeatmapDifficulty
     {
         public string Name;
-        public BeatmapNote[] BeatmapNotes;
+        public BeatmapNote[] BeatmapNotes; 
         public AudioTrack Track;
         public int AR;
         public int AD;
