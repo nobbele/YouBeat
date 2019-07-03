@@ -11,7 +11,7 @@
 
     public static class AccuracyHelper
     {
-        public static Accuracy FromPercent(double percent)
+        public static Accuracy FromPercent(float percent)
         {
             if      (percent < 0.2f) return Accuracy.Perfect;
             else if (percent < 0.4f) return Accuracy.Good;

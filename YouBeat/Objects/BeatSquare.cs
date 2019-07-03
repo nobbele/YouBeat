@@ -8,11 +8,11 @@ namespace YouBeat.Objects
 {
     public class BeatSquare : IDrawable, IUpdateable
     {
-        public BeatmapNote Note { get; protected set; }
-        public double SpawnTime { get; protected set; }
+        public BeatmapNote? Note { get; protected set; }
+        public float SpawnTime { get; protected set; }
         public Vector2 Position { get; protected set; }
         public int MapIndex { get; protected set; }
-        public double BeatTime => Note?.time ?? 0;
+        public float BeatTime => Note?.time ?? 0;
         public int Index => (int)(Position.Y * 3 + Position.X);
         public Keys Key => YouBeat.Instance.keys[Index];
 
@@ -43,13 +43,13 @@ namespace YouBeat.Objects
 
         public void Update(GameTime gameTime)
         {
-            if (Note == null)
+            if (!Note.HasValue)
             {
                 color = Color.White;
                 return;
             }
 
-            double trackPosition = map.Track.Value.GetPosition();
+            float trackPosition = map.Track.Value.GetPosition();
 
             if (map.HitWindow.IsInside(BeatTime, trackPosition) == 1)
             {
@@ -63,10 +63,10 @@ namespace YouBeat.Objects
             float progress = (float)((trackPosition - SpawnTime) / (BeatTime - SpawnTime));
             color = Color.Lerp(Color.Blue, Color.Red, progress);
 
-            if (Keyboard.GetState().IsKeyDown(Key) && map.HitWindow.IsInside(BeatTime, trackPosition, out double wrongPercentage) == 0)
+            if (Keyboard.GetState().IsKeyDown(Key) && map.HitWindow.IsInside(BeatTime, trackPosition, out float wrongPercentage) == 0)
             {
                 color = Color.Black;
-                double diff = Math.Abs(Note.position - trackPosition); 
+                float diff = Math.Abs(Note.Value.position - trackPosition); 
                 Note = null;
                 playResult.Accuracies[MapIndex] = AccuracyHelper.FromPercent(wrongPercentage);
                 playResult.NotesCalculated++;
@@ -76,14 +76,14 @@ namespace YouBeat.Objects
 
         protected virtual int widthMultiplier => 1;
 
-        public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
-        {
-            spriteBatch.Draw(t, 
-                             rect.PercentagePoint(1f / 3 * Position.X + 0.01f,
-                                                  1f / 4 * Position.Y + 0.01f, 
-                                                  (1f / 3 * widthMultiplier) - 0.02f, 
-                                                  1f / 4 - 0.02f),
-                             color);
-        }
+            public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
+            {
+                spriteBatch.Draw(t, 
+                                    rect.PercentagePoint(1f / 3 * Position.X + 0.01f,
+                                                        1f / 4 * Position.Y + 0.01f, 
+                                                        (1f / 3 * widthMultiplier) - 0.02f, 
+                                                        1f / 4 - 0.02f),
+                                    color);
+            }
     }
 }

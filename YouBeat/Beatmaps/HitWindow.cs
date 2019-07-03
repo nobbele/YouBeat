@@ -2,11 +2,11 @@
 {
     public struct HitWindow
     {
-        public readonly double Window;
-        public double Min(double time) => time - Window;
-        public double Max(double time) => time + Window;
+        public readonly float Window;
+        public float Min(float time) => time - Window;
+        public float Max(float time) => time + Window;
 
-        public HitWindow(double window)
+        public HitWindow(float window)
         {
             Window = window;
         }
@@ -22,11 +22,11 @@
         /// Then the variable would be set to 0.5
         /// </param>
         /// <returns>-1 if before, 0 if inside, 1 if after</returns>
-        public int IsInside(double expectedTime, double time, out double wrongPercentage)
+        public int IsInside(float expectedTime, float time, out float wrongPercentage)
         {
             int isInside = IsInside(expectedTime, time);
 
-            double diff = expectedTime - time;
+            float diff = expectedTime - time;
             wrongPercentage = diff / Window;
 
             return isInside;
@@ -38,7 +38,7 @@
         /// <param name="expectedTime">The value that <paramref name="time"/> is supposed to match, aka middle of hit window</param>
         /// <param name="time">The time to check</param>
         /// <returns>-1 if before, 0 if inside, 1 if after</returns>
-        public int IsInside(double expectedTime, double time)
+        public int IsInside(float expectedTime, float time)
         {
             if (time < Min(expectedTime)) return -1;
             if (time > Max(expectedTime)) return  1;

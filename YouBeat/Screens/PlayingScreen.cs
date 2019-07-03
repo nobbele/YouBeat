@@ -59,7 +59,7 @@ namespace YouBeat.Screens
                 Map.Track.Value.Play();
             }
 
-            double trackPosition = Map.Track.Value.GetPosition();
+            float trackPosition = Map.Track.Value.GetPosition();
             IEnumerable<BeatmapNote> notesToShow = Map.BeatmapNotes.Where(note => trackPosition > (note.time - Map.ArInMs()) && trackPosition < (Map.HitWindow.Max(note.time)));
             foreach(BeatmapNote note in notesToShow)
             {

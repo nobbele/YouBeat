@@ -75,22 +75,22 @@ namespace YouBeat.Audio
         /// Don't call too frequently, try to store it
         /// </summary>
         /// <returns></returns>
-        public double GetPosition()
+        public float GetPosition()
         {
-            return Bass.ChannelBytes2Seconds(handle, Bass.ChannelGetPosition(handle)) * 1000;
+            return (float)Bass.ChannelBytes2Seconds(handle, Bass.ChannelGetPosition(handle)) * 1000;
         }
 
-        public double GetVolume()
+        public float GetVolume()
         {
-            return Bass.ChannelGetAttribute(handle, ChannelAttribute.Volume) * 10000;
+            return (float)Bass.ChannelGetAttribute(handle, ChannelAttribute.Volume) * 10000;
         }
 
-        public void SetVolume(double vol)
+        public void SetVolume(float vol)
         {
             Bass.ChannelSetAttribute(handle, ChannelAttribute.Volume, vol / 10000);
         }
 
-        public static double GlobalVolume {
+        public static float GlobalVolume {
             get => Bass.GlobalStreamVolume / 10000f;
             set => Bass.GlobalStreamVolume = (int)(value * 10000);
         }

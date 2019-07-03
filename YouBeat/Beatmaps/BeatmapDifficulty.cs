@@ -3,10 +3,6 @@ using YouBeat.Audio;
 
 namespace YouBeat.Beatmaps
 {
-    public class LoadedLazy<T> : Lazy<T> where T : ILoadable
-    {
-
-    }
     public class BeatmapDifficulty
     {
         public string Name;
@@ -26,13 +22,13 @@ namespace YouBeat.Beatmaps
             HitWindow = new HitWindow(AdInMs());
         }
 
-        public double ArInMs()
+        public float ArInMs()
         {
-            return (double)-AR * 80 + 1000; 
+            return (float)-AR * 80 + 1000; 
         }
-        public double AdInMs()
+        public float AdInMs()
         {
-            return (double)-AD * 75 + 800;
+            return (float)-AD * 75 + 800;
         }
     }
 }

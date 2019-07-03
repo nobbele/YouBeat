@@ -1,11 +1,11 @@
 ﻿namespace YouBeat.Beatmaps
 {
-    public class BeatmapNote
+    public struct BeatmapNote
     {
-        public double time;
-        public int position;
+        public readonly float time;
+        public readonly int position;
 
-        public BeatmapNote(double time, int position)
+        public BeatmapNote(float time, int position)
         {
             this.time = time;
             this.position = position;

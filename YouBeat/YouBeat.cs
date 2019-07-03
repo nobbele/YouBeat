@@ -74,7 +74,7 @@ namespace YouBeat
             new BeatmapNote(7405, 2),
             new BeatmapNote(7491, 1),
             new BeatmapNote(7664, 9),
-        }, new AudioTrack("yanaginagi - Harumodoki.mp3"), ar: 10, ad: 8);
+        }, new AudioTrack("yanaginagi - Harumodoki.mp3"), ar: 9, ad: 8);
 
         public Keys[] keys = new Keys[]
         {
@@ -94,7 +94,7 @@ namespace YouBeat
             fontStore.Add("Arial");
 
             AudioTrack.EngineInit();
-            AudioTrack.GlobalVolume = 0.5;
+            AudioTrack.GlobalVolume = 0.5f;
 
             LoadScreen(new PlayingScreen(testDifficulty));
         }
@@ -125,8 +125,8 @@ namespace YouBeat
 
         }
 
-        private List<Exception> updateErrorMessages = new List<Exception>();
-        private List<Exception> drawErrorMessages = new List<Exception>();
+        private readonly List<Exception> updateErrorMessages = new List<Exception>();
+        private readonly List<Exception> drawErrorMessages = new List<Exception>();
 
         protected override void Draw(GameTime gameTime)
         {
