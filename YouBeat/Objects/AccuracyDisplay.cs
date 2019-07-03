@@ -5,7 +5,7 @@ using YouBeat.Beatmaps;
 
 namespace YouBeat.Objects
 {
-    public class AccuracyDisplay : IDrawable, IUpdatable
+    public class AccuracyDisplay : IDrawable, IUpdateable
     {
         PlayResult result;
 
@@ -16,12 +16,12 @@ namespace YouBeat.Objects
 
         public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            
+            spriteBatch.DrawString(YouBeat.Instance.fontStore["Arial"], (result.Percent).ToString("0.00%"), rect.PercentagePoint(0, 0), Color.White);
         }
 
         public void Update(GameTime gameTime)
         {
-            throw new NotImplementedException();
+            return;
         }
     }
 }

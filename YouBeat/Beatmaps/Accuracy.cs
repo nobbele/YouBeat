@@ -13,25 +13,25 @@
     {
         public static Accuracy FromPercent(double percent)
         {
-            if      (percent < 0.2) return Accuracy.Perfect;
-            else if (percent < 0.4) return Accuracy.Good;
-            else if (percent < 0.6) return Accuracy.Okay;
-            else                    return Accuracy.Bad;
+            if      (percent < 0.2f) return Accuracy.Perfect;
+            else if (percent < 0.4f) return Accuracy.Good;
+            else if (percent < 0.6f) return Accuracy.Okay;
+            else                     return Accuracy.Bad;
         }
-        public static double ToPercent(Accuracy acc)
+        public static float ToPercent(Accuracy acc)
         {
             switch (acc)
             {
                 case Accuracy.Bad:
-                    return 0.3;
+                    return 0.3f;
                 case Accuracy.Okay:
-                    return 0.6;
+                    return 0.6f;
                 case Accuracy.Good:
-                    return 0.8;
+                    return 0.8f;
                 case Accuracy.Perfect:
-                    return 1;
+                    return 1f;
             }
-            return 0;
+            return 0f;
         }
     }
 }

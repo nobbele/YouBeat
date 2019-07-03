@@ -38,19 +38,43 @@ namespace YouBeat
             return screen;
         }
 
-        readonly BeatmapDifficulty currentDifficulty = new BeatmapDifficulty("Harumodoki", new BeatmapNote[] {
+        readonly BeatmapDifficulty testDifficulty = new BeatmapDifficulty("Harumodoki", new BeatmapNote[] {
             new BeatmapNote(940, 0),
-            new BeatmapNote(2319, 1),
-            new BeatmapNote(3698, 2),
-            new BeatmapNote(5077, 3),
-            new BeatmapNote(6457, 4),
-            new BeatmapNote(7664, 5),
-            new BeatmapNote(8871, 6),
-            new BeatmapNote(8871 + (1207 * 1), 7),
-            new BeatmapNote(8871 + (1207 * 2), 8),
-            new BeatmapNote(8871 + (1207 * 3), 9),
-            new BeatmapNote(8871 + (1207 * 4), 10),
-        }, new AudioTrack("yanaginagi - Harumodoki.mp3"), 3, 7);
+            new BeatmapNote(1284, 3),
+
+            new BeatmapNote(1629, 1),
+            new BeatmapNote(1974, 4),
+
+            new BeatmapNote(2319, 2),
+            new BeatmapNote(2664, 5),
+            new BeatmapNote(3008, 8),
+            new BeatmapNote(3353, 6),
+
+            new BeatmapNote(4043, 7),
+            new BeatmapNote(4388, 4),
+            new BeatmapNote(4733, 1),
+
+            new BeatmapNote(5077, 9),
+
+            new BeatmapNote(5422, 3),
+            new BeatmapNote(5767, 4),
+            new BeatmapNote(6112, 5),
+
+            new BeatmapNote(6457, 6),
+            new BeatmapNote(6543, 3),
+            new BeatmapNote(6629, 6),
+            new BeatmapNote(6715, 3),
+            new BeatmapNote(6802, 6),
+            new BeatmapNote(6888, 3),
+            new BeatmapNote(6974, 6),
+
+            new BeatmapNote(7146, 1),
+            new BeatmapNote(7233, 2),
+            new BeatmapNote(7319, 1),
+            new BeatmapNote(7405, 2),
+            new BeatmapNote(7491, 1),
+            new BeatmapNote(7664, 9),
+        }, new AudioTrack("yanaginagi - Harumodoki.mp3"), ar: 10, ad: 8);
 
         public Keys[] keys = new Keys[]
         {
@@ -72,7 +96,7 @@ namespace YouBeat
             AudioTrack.EngineInit();
             AudioTrack.GlobalVolume = 0.5;
 
-            LoadScreen(new PlayingScreen(currentDifficulty));
+            LoadScreen(new PlayingScreen(testDifficulty));
         }
 
         protected override void UnloadContent()

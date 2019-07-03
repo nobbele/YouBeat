@@ -10,5 +10,6 @@ namespace YouBeat
     {
         void Load();
         void Unload();
+        bool IsLoaded();
     }
 }

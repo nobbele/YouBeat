@@ -11,6 +11,9 @@ namespace YouBeat.Screens
 {
     public class PlayingScreen : IScreen
     {
+        bool IsLoaded = false;
+        bool ILoadable.IsLoaded() => IsLoaded;
+
         public BeatmapDifficulty Map;
         public PlayResult playResult;
 
@@ -36,8 +39,9 @@ namespace YouBeat.Screens
             beatSquares.Children.Add(new SpecialOneBeatSquare(Map, new Vector2(0, 3), playResult));
             beatSquares.Children.Add(new BeatSquare(Map, new Vector2(2, 3), playResult));
 
-            Map.Track.Load();
-            Map.Track.Play();
+            Map.Track.Value.Play();
+
+            IsLoaded = true;
         }
 
         bool numlockWarning = false;
@@ -47,15 +51,15 @@ namespace YouBeat.Screens
             if(!Keyboard.GetState().NumLock && !numlockWarning)
             {
                 numlockWarning = true;
-                Map.Track.Pause();
+                Map.Track.Value.Pause();
             }
             else if (Keyboard.GetState().NumLock && numlockWarning)
             {
                 numlockWarning = false;
-                Map.Track.Play();
+                Map.Track.Value.Play();
             }
 
-            double trackPosition = Map.Track.GetPosition();
+            double trackPosition = Map.Track.Value.GetPosition();
             IEnumerable<BeatmapNote> notesToShow = Map.BeatmapNotes.Where(note => trackPosition > (note.time - Map.ArInMs()) && trackPosition < (Map.HitWindow.Max(note.time)));
             foreach(BeatmapNote note in notesToShow)
             {
@@ -63,7 +67,7 @@ namespace YouBeat.Screens
                 int mapIndex = Array.IndexOf(Map.BeatmapNotes, note);
                 BeatSquare bs = beatSquares.Children[index];
                 if (bs.Note == null && playResult.Accuracies[mapIndex] == Accuracy.None)
-                    bs.LoadNote(note, mapIndex);
+                    bs.SetNoteData(note, mapIndex);
             }
 
             beatSquares.Update(gameTime);
@@ -79,8 +83,10 @@ namespace YouBeat.Screens
          
         public void Unload()
         {
-            Map.Track.Stop();
-            Map.Track.Unload();
+            Map.Track.Value.Stop();
+            Map.Track.Value.Unload();
+
+            IsLoaded = false;
         }
     }
 }

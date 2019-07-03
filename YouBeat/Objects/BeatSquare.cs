@@ -6,7 +6,7 @@ using YouBeat.Beatmaps;
 
 namespace YouBeat.Objects
 {
-    public class BeatSquare : IDrawable, IUpdatable
+    public class BeatSquare : IDrawable, IUpdateable
     {
         public BeatmapNote Note { get; protected set; }
         public double SpawnTime { get; protected set; }
@@ -34,11 +34,11 @@ namespace YouBeat.Objects
             t.SetData(new Color[] { Color.White });
         }
 
-        public void LoadNote(BeatmapNote note, int mapIndex)
+        public void SetNoteData(BeatmapNote note, int mapIndex)
         {
             MapIndex = mapIndex;
             Note = note;
-            SpawnTime = map.Track.GetPosition();
+            SpawnTime = map.Track.Value.GetPosition();
         }
 
         public void Update(GameTime gameTime)
@@ -49,19 +49,19 @@ namespace YouBeat.Objects
                 return;
             }
 
-            double trackPosition = map.Track.GetPosition();
+            double trackPosition = map.Track.Value.GetPosition();
 
             if (map.HitWindow.IsInside(BeatTime, trackPosition) == 1)
             {
                 Note = null;
                 playResult.Accuracies[MapIndex] = Accuracy.None;
-                playResult.NotesClicked++;
+                playResult.NotesCalculated++;
                 Console.WriteLine("Received Scoring: " + Accuracy.None);
                 return;
             }
 
-            double progress = (trackPosition - SpawnTime) / (BeatTime - SpawnTime);
-            color = Color.Lerp(Color.Blue, Color.Red, (float)progress);
+            float progress = (float)((trackPosition - SpawnTime) / (BeatTime - SpawnTime));
+            color = Color.Lerp(Color.Blue, Color.Red, progress);
 
             if (Keyboard.GetState().IsKeyDown(Key) && map.HitWindow.IsInside(BeatTime, trackPosition, out double wrongPercentage) == 0)
             {
@@ -69,7 +69,7 @@ namespace YouBeat.Objects
                 double diff = Math.Abs(Note.position - trackPosition); 
                 Note = null;
                 playResult.Accuracies[MapIndex] = AccuracyHelper.FromPercent(wrongPercentage);
-                playResult.NotesClicked++;
+                playResult.NotesCalculated++;
                 Console.WriteLine("Received Scoring: " + AccuracyHelper.FromPercent(wrongPercentage));
             }
         }

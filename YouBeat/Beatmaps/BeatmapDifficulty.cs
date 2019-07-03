@@ -10,8 +10,8 @@ namespace YouBeat.Beatmaps
     public class BeatmapDifficulty
     {
         public string Name;
-        public BeatmapNote[] BeatmapNotes; 
-        public AudioTrack Track;
+        public BeatmapNote[] BeatmapNotes;
+        public LazyLoadable<AudioTrack> Track;
         public int AR;
         public int AD;
         public HitWindow HitWindow;
@@ -20,7 +20,7 @@ namespace YouBeat.Beatmaps
         {
             Name = name;
             BeatmapNotes = beatmapNotes;
-            Track = track;
+            Track = new LazyLoadable<AudioTrack>(track);
             AR = ar;
             AD = ad;
             HitWindow = new HitWindow(AdInMs());
@@ -28,7 +28,7 @@ namespace YouBeat.Beatmaps
 
         public double ArInMs()
         {
-            return (double)-AR * 75 + 1000; 
+            return (double)-AR * 80 + 1000; 
         }
         public double AdInMs()
         {

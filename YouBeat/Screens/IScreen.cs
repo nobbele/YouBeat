@@ -1,6 +1,6 @@
 ﻿namespace YouBeat.Screens
 {
-    public interface IScreen : ILoadable, IDrawable, IUpdatable
+    public interface IScreen : ILoadable, IDrawable, IUpdateable
     {
 
     }

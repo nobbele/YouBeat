@@ -5,7 +5,7 @@ namespace YouBeat.Audio
 {
     public class AudioTrack : ILoadable
     {
-        public bool IsLoaded;
+        public bool IsLoaded = false;
         int handle;
         readonly string filePath;
 
@@ -13,6 +13,8 @@ namespace YouBeat.Audio
         {
             filePath = filepath;
         }
+
+        bool ILoadable.IsLoaded() => IsLoaded;
 
         public void Load()
         {
@@ -69,6 +71,10 @@ namespace YouBeat.Audio
             IsLoaded = false;
         }
 
+        /// <summary>
+        /// Don't call too frequently, try to store it
+        /// </summary>
+        /// <returns></returns>
         public double GetPosition()
         {
             return Bass.ChannelBytes2Seconds(handle, Bass.ChannelGetPosition(handle)) * 1000;

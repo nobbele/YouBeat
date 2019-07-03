@@ -56,6 +56,7 @@
     <Compile Include="Beatmaps\HitWindow.cs" />
     <Compile Include="Beatmaps\PlayResult.cs" />
     <Compile Include="FontStore.cs" />
+    <Compile Include="LazyLoadable.cs" />
     <Compile Include="Objects\AccuracyDisplay.cs" />
     <Compile Include="Objects\BeatSquare.cs" />
     <Compile Include="Objects\DrawableContainer.cs" />
@@ -64,7 +65,7 @@
     <Compile Include="ILoadable.cs" />
     <Compile Include="RectangleExtensionMethods.cs" />
     <Compile Include="Screens\IScreen.cs" />
-    <Compile Include="IUpdatable.cs" />
+    <Compile Include="IUpdateable.cs" />
     <Compile Include="Screens\PlayingScreen.cs" />
     <Compile Include="YouBeat.cs" />
     <Compile Include="Program.cs" />

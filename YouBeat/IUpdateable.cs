@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace YouBeat
 {
-    public interface IUpdatable
+    public interface IUpdateable
     {
         void Update(GameTime gameTime);
     }
