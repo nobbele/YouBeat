@@ -10,6 +10,7 @@ using YouBeat.Audio;
 using YouBeat.Beatmaps;
 using YouBeat.DependencyInjection;
 using YouBeat.Screens;
+using YouBeat.Store;
 
 namespace YouBeat
 {
@@ -39,7 +40,7 @@ namespace YouBeat
             return screen;
         }
 
-        readonly BeatmapDifficulty testDifficulty = new BeatmapDifficulty("Harumodoki", new BeatmapNote[] {
+        readonly Beatmap testBeatmap = new Beatmap(new BeatmapDifficulty[] { new BeatmapDifficulty("Harumodoki", new BeatmapNote[] {
             new BeatmapNote(940, 0),
             new BeatmapNote(1284, 3),
 
@@ -75,9 +76,11 @@ namespace YouBeat
             new BeatmapNote(7405, 2),
             new BeatmapNote(7491, 1),
             new BeatmapNote(7664, 9),
-        }, new AudioTrack("yanaginagi - Harumodoki.mp3"), ar: 9, ad: 8);
+        }, new AudioTrack("yanaginagi - Harumodoki.mp3"), ar: 9, ad: 8) }, new BeatmapMetadata());
 
         public FontStore fontStore;
+        public TextureStore textureStore;
+        public BeatmapStore beatmapStore;
         public Settings settings;
 
         protected override void LoadContent()
@@ -87,15 +90,28 @@ namespace YouBeat
             fontStore = new FontStore(new ContentManager(Content.ServiceProvider, Path.Combine(Content.RootDirectory, "Fonts")));
             fontStore.Add("Arial");
 
+            textureStore = new TextureStore(new ContentManager(Content.ServiceProvider, Path.Combine(Content.RootDirectory, "Textures")));
+
+            Texture2D beatSquareTexture = new Texture2D(GraphicsDevice, 1, 1);
+            beatSquareTexture.SetData(new Color[] { Color.White });
+            textureStore.Add("BeatSquareTexture", beatSquareTexture);
+
+            beatmapStore = new BeatmapStore("Songs");
+            BeatmapStoreInfo beatmapStoreInfo = new BeatmapStoreInfoRaw(testBeatmap.Metadata, testBeatmap);
+            beatmapStore.Add(beatmapStoreInfo);
+
             settings = new Settings();
 
             DependencyInjectedObject.AddDependency(fontStore);
+            DependencyInjectedObject.AddDependency(textureStore);
+            DependencyInjectedObject.AddDependency(beatmapStore);
             DependencyInjectedObject.AddDependency(settings);
 
             AudioTrack.EngineInit();
             AudioTrack.GlobalVolume = 0.5f;
 
-            LoadScreen(new PlayingScreen(testDifficulty));
+            //LoadScreen(new PlayingScreen(testBeatmap.Difficulties[0]));
+            LoadScreen(new SongSelect());
         }
 
         protected override void UnloadContent()

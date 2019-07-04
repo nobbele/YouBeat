@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using YouBeat.Beatmaps;
 using YouBeat.DependencyInjection;
+using YouBeat.Store;
 
 namespace YouBeat.Objects
 {
@@ -11,6 +12,8 @@ namespace YouBeat.Objects
     {
         [DependencyInjectedProperty]
         protected Settings settings { get; set; }
+        [DependencyInjectedProperty]
+        protected TextureStore textureStore { get; set; }
 
         public BeatmapNote? Note { get; protected set; }
         public float SpawnTime { get; protected set; }
@@ -20,12 +23,9 @@ namespace YouBeat.Objects
         public int Index => (int)(Position.Y * 3 + Position.X);
         public Keys Key => settings.BeatSquareKeys[Index];
 
-        protected bool isLoaded;
-
         private readonly BeatmapDifficulty map;
         private readonly PlayResult playResult;
 
-        Texture2D t;
         Color color = Color.White;
 
         public BeatSquare(BeatmapDifficulty map, Vector2 position, PlayResult playResult) : base()
@@ -33,16 +33,13 @@ namespace YouBeat.Objects
             this.map = map;
             this.playResult = playResult;
             Position = position;
-
-            t = new Texture2D(YouBeat.Instance.GraphicsDevice, 1, 1);
-            t.SetData(new Color[] { Color.White });
         }
 
         public void SetNoteData(BeatmapNote note, int mapIndex)
         {
             MapIndex = mapIndex;
             Note = note;
-            SpawnTime = map.Track.Value.GetPosition();
+            SpawnTime = map.Track.GetPosition();
         }
 
         public void Update(GameTime gameTime)
@@ -53,7 +50,7 @@ namespace YouBeat.Objects
                 return;
             }
 
-            float trackPosition = map.Track.Value.GetPosition();
+            float trackPosition = map.Track.GetPosition();
 
             if (map.HitWindow.IsInside(BeatTime, trackPosition) == 1)
             {
@@ -82,12 +79,12 @@ namespace YouBeat.Objects
 
         public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.Draw(t, 
-                                rect.PercentagePoint(1f / 3 * Position.X + 0.01f,
-                                                        1f / 4 * Position.Y + 0.01f, 
-                                                        1f / 3 * widthMultiplier - 0.02f, 
-                                                        1f / 4 - 0.02f),
-                                color);
+            spriteBatch.Draw(textureStore["BeatSquareTexture"], 
+                             rect.PercentagePoint(1f / 3 * Position.X + 0.01f,
+                                                  1f / 4 * Position.Y + 0.01f, 
+                                                  1f / 3 * widthMultiplier - 0.02f, 
+                                                  1f / 4 - 0.02f),
+                             color);
         }
     }
 }

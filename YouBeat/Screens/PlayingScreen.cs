@@ -12,8 +12,7 @@ namespace YouBeat.Screens
 {
     public class PlayingScreen : IScreen
     {
-        bool IsLoaded = false;
-        bool ILoadable.IsLoaded() => IsLoaded;
+        public bool IsLoaded { get; set; }
 
         public BeatmapDifficulty Map;
         public PlayResult playResult;

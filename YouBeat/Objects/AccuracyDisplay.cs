@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using YouBeat.Beatmaps;
 using YouBeat.DependencyInjection;
+using YouBeat.Store;
 
 namespace YouBeat.Objects
 {

@@ -10,6 +10,6 @@ namespace YouBeat
     {
         void Load();
         void Unload();
-        bool IsLoaded();
+        bool IsLoaded { get; }
     }
 }

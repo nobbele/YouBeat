@@ -3,12 +3,12 @@
     public class Beatmap
     {
         public BeatmapDifficulty[] Difficulties;
-        public string SongName;
+        public BeatmapMetadata Metadata;
 
-        public Beatmap(BeatmapDifficulty[] difficulties, string songName)
+        public Beatmap(BeatmapDifficulty[] difficulties, BeatmapMetadata metadata)
         {
             Difficulties = difficulties;
-            SongName = songName;
+            Metadata = metadata;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace YouBeat.Audio
             filePath = filepath;
         }
 
-        bool ILoadable.IsLoaded() => IsLoaded;
+        bool ILoadable.IsLoaded => IsLoaded;
 
         public void Load()
         {

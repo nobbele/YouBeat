@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace YouBeat.Objects
 {
-    public class DrawableContainer<T> : IDrawable, IUpdateable where T : IDrawable
+    public class DrawableContainer<T> : IDrawable where T : IDrawable
     {
         public List<T> Children = new List<T>();
 
@@ -18,9 +18,9 @@ namespace YouBeat.Objects
 
         public void Update(GameTime gameTime)
         {
-            foreach(IUpdateable updatable in Children)
+            foreach(object o in Children)
             {
-                updatable.Update(gameTime);
+                (o as IUpdateable)?.Update(gameTime);
             }
         }
     }
