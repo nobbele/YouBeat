@@ -40,7 +40,8 @@ namespace YouBeat.Screens
             beatSquares.Children.Add(new SpecialOneBeatSquare(Map, new Vector2(0, 3), playResult));
             beatSquares.Children.Add(new BeatSquare(Map, new Vector2(2, 3), playResult));
 
-            Map.Track.Value.Play();
+            Map.Track.Load();
+            Map.Track.Play();
 
             IsLoaded = true;
         }
@@ -52,15 +53,15 @@ namespace YouBeat.Screens
             if(!Keyboard.GetState().NumLock && !numlockWarning)
             {
                 numlockWarning = true;
-                Map.Track.Value.Pause();
+                Map.Track.Pause();
             }
             else if (Keyboard.GetState().NumLock && numlockWarning)
             {
                 numlockWarning = false;
-                Map.Track.Value.Play();
+                Map.Track.Play();
             }
 
-            float trackPosition = Map.Track.Value.GetPosition();
+            float trackPosition = Map.Track.GetPosition();
             IEnumerable<BeatmapNote> notesToShow = Map.BeatmapNotes.Where(note => trackPosition > (note.time - Map.ArInMs()) && trackPosition < (Map.HitWindow.Max(note.time)));
             foreach(BeatmapNote note in notesToShow)
             {
@@ -84,8 +85,8 @@ namespace YouBeat.Screens
          
         public void Unload()
         {
-            Map.Track.Value.Stop();
-            Map.Track.Value.Unload();
+            Map.Track.Stop();
+            Map.Track.Unload();
 
             IsLoaded = false;
         }

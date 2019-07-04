@@ -7,7 +7,7 @@ namespace YouBeat.Beatmaps
     {
         public string Name;
         public BeatmapNote[] BeatmapNotes;
-        public LazyLoadable<AudioTrack> Track;
+        public AudioTrack Track;
         public int AR;
         public int AD;
         public HitWindow HitWindow;
@@ -16,7 +16,7 @@ namespace YouBeat.Beatmaps
         {
             Name = name;
             BeatmapNotes = beatmapNotes;
-            Track = new LazyLoadable<AudioTrack>(track);
+            Track = track;
             AR = ar;
             AD = ad;
             HitWindow = new HitWindow(AdInMs());

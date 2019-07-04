@@ -12,7 +12,7 @@ namespace YouBeat
 {
     public class FontStore
     {
-        private Dictionary<string, Lazy<SpriteFont>> m_fonts = new Dictionary<string, Lazy<SpriteFont>>();
+        private Dictionary<string, SpriteFont> m_fonts = new Dictionary<string, SpriteFont>();
         private ContentManager m_content;
 
         public FontStore(ContentManager content)
@@ -22,12 +22,12 @@ namespace YouBeat
 
         public SpriteFont this[string name] 
         {
-            get => m_fonts[name].Value;
+            get => m_fonts[name];
         }
 
         public void Add(string assetName, string accessName = null)
         {
-            m_fonts.Add(accessName ?? assetName, new Lazy<SpriteFont>(() => m_content.Load<SpriteFont>(assetName), false));
+            m_fonts.Add(accessName ?? assetName, m_content.Load<SpriteFont>(assetName));
         }
     }
 }
