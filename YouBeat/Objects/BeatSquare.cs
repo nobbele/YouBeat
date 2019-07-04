@@ -3,18 +3,22 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using YouBeat.Beatmaps;
+using YouBeat.DependencyInjection;
 
 namespace YouBeat.Objects
 {
-    public class BeatSquare : IDrawable, IUpdateable
+    public class BeatSquare : DependencyInjectedObject, IDrawable, IUpdateable
     {
+        [DependencyInjectedProperty]
+        protected Settings settings { get; set; }
+
         public BeatmapNote? Note { get; protected set; }
         public float SpawnTime { get; protected set; }
         public Vector2 Position { get; protected set; }
         public int MapIndex { get; protected set; }
         public float BeatTime => Note?.time ?? 0;
         public int Index => (int)(Position.Y * 3 + Position.X);
-        public Keys Key => YouBeat.Instance.keys[Index];
+        public Keys Key => settings.BeatSquareKeys[Index];
 
         protected bool isLoaded;
 
@@ -24,7 +28,7 @@ namespace YouBeat.Objects
         Texture2D t;
         Color color = Color.White;
 
-        public BeatSquare(BeatmapDifficulty map, Vector2 position, PlayResult playResult)
+        public BeatSquare(BeatmapDifficulty map, Vector2 position, PlayResult playResult) : base()
         {
             this.map = map;
             this.playResult = playResult;
@@ -60,7 +64,7 @@ namespace YouBeat.Objects
                 return;
             }
 
-            float progress = (float)((trackPosition - SpawnTime) / (BeatTime - SpawnTime));
+            float progress = ((trackPosition - SpawnTime) / (BeatTime - SpawnTime));
             color = Color.Lerp(Color.Blue, Color.Red, progress);
 
             if (Keyboard.GetState().IsKeyDown(Key) && map.HitWindow.IsInside(BeatTime, trackPosition, out float wrongPercentage) == 0)
@@ -76,14 +80,14 @@ namespace YouBeat.Objects
 
         protected virtual int widthMultiplier => 1;
 
-            public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
-            {
-                spriteBatch.Draw(t, 
-                                    rect.PercentagePoint(1f / 3 * Position.X + 0.01f,
+        public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
+        {
+            spriteBatch.Draw(t, 
+                                rect.PercentagePoint(1f / 3 * Position.X + 0.01f,
                                                         1f / 4 * Position.Y + 0.01f, 
-                                                        (1f / 3 * widthMultiplier) - 0.02f, 
+                                                        1f / 3 * widthMultiplier - 0.02f, 
                                                         1f / 4 - 0.02f),
-                                    color);
-            }
+                                color);
+        }
     }
 }

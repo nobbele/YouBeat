@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using YouBeat.Beatmaps;
+using YouBeat.DependencyInjection;
 using YouBeat.Objects;
 
 namespace YouBeat.Screens

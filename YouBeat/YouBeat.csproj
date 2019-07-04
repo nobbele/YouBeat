@@ -55,6 +55,9 @@
     <Compile Include="Beatmaps\BeatmapNote.cs" />
     <Compile Include="Beatmaps\HitWindow.cs" />
     <Compile Include="Beatmaps\PlayResult.cs" />
+    <Compile Include="DependencyInjection\DependencyInjectedObject.cs" />
+    <Compile Include="DependencyInjection\DependencyInjectedPropertyAttribute.cs" />
+    <Compile Include="DependencyInjection\DependencyInjectionProviderAttribute.cs" />
     <Compile Include="FontStore.cs" />
     <Compile Include="LazyLoadable.cs" />
     <Compile Include="Objects\AccuracyDisplay.cs" />
@@ -67,6 +70,7 @@
     <Compile Include="Screens\IScreen.cs" />
     <Compile Include="IUpdateable.cs" />
     <Compile Include="Screens\PlayingScreen.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="YouBeat.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

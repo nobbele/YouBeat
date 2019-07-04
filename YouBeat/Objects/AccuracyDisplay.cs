@@ -2,21 +2,25 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using YouBeat.Beatmaps;
+using YouBeat.DependencyInjection;
 
 namespace YouBeat.Objects
 {
-    public class AccuracyDisplay : IDrawable, IUpdateable
+    public class AccuracyDisplay : DependencyInjectedObject, IDrawable, IUpdateable
     {
         PlayResult result;
 
-        public AccuracyDisplay(PlayResult result)
+        [DependencyInjectedProperty]
+        protected FontStore fontStore { get; set; }
+
+        public AccuracyDisplay(PlayResult result) : base()
         {
             this.result = result;
         }
 
         public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.DrawString(YouBeat.Instance.fontStore["Arial"], (result.Percent).ToString("0.00%"), rect.PercentagePoint(0, 0), Color.White);
+            spriteBatch.DrawString(fontStore["Arial"], result.Percent.ToString("0.00%"), rect.PercentagePoint(0, 0), Color.White);
         }
 
         public void Update(GameTime gameTime)

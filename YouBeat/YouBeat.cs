@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using YouBeat.Audio;
 using YouBeat.Beatmaps;
+using YouBeat.DependencyInjection;
 using YouBeat.Screens;
 
 namespace YouBeat
@@ -76,15 +77,8 @@ namespace YouBeat
             new BeatmapNote(7664, 9),
         }, new AudioTrack("yanaginagi - Harumodoki.mp3"), ar: 9, ad: 8);
 
-        public Keys[] keys = new Keys[]
-        {
-            Keys.NumPad7, Keys.NumPad8, Keys.NumPad9,
-            Keys.NumPad4, Keys.NumPad5, Keys.NumPad6,
-            Keys.NumPad1, Keys.NumPad2, Keys.NumPad3,
-            Keys.NumPad0, Keys.None,    Keys.Decimal,
-        };
-
         public FontStore fontStore;
+        public Settings settings;
 
         protected override void LoadContent()
         {
@@ -92,6 +86,11 @@ namespace YouBeat
 
             fontStore = new FontStore(new ContentManager(Content.ServiceProvider, Path.Combine(Content.RootDirectory, "Fonts")));
             fontStore.Add("Arial");
+
+            settings = new Settings();
+
+            DependencyInjectedObject.AddDependency(fontStore);
+            DependencyInjectedObject.AddDependency(settings);
 
             AudioTrack.EngineInit();
             AudioTrack.GlobalVolume = 0.5f;
