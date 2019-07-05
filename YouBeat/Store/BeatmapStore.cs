@@ -16,6 +16,7 @@ namespace YouBeat.Store
         public bool IsLoaded { get; set; }
 
         protected List<BeatmapStoreInfo> m_beatmaps = new List<BeatmapStoreInfo>();
+        public List<BeatmapStoreInfo> Beatmaps => m_beatmaps;
 
         public BeatmapStore(string rootDirectory)
         {

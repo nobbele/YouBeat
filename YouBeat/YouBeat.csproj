@@ -59,6 +59,9 @@
     <Compile Include="Beatmaps\BeatmapStoreInfoRaw.cs" />
     <Compile Include="Beatmaps\HitWindow.cs" />
     <Compile Include="Beatmaps\PlayResult.cs" />
+    <Compile Include="ISize.cs" />
+    <Compile Include="Objects\SongSelectItem.cs" />
+    <Compile Include="Objects\VerticalContainer.cs" />
     <Compile Include="Parsers\InfoFileParser.cs" />
     <Compile Include="Parsers\InfoFilePropertyAttribute.cs" />
     <Compile Include="Screens\SongSelect.cs" />

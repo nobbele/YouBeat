@@ -27,8 +27,10 @@ namespace YouBeat.DependencyInjection
                                         .ToArray();
             foreach (PropertyInfo prop in properties)
             {
+#if DEBUG
                 if (!Dependencies.TryGetValue(prop.PropertyType, out object value))
                     throw new Exception($"Missing Dependency '{prop.PropertyType.Name}'");
+#endif
                 prop.SetValue(this, value);
             }
         }
