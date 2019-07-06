@@ -12,21 +12,28 @@ namespace YouBeat.Objects
     {
         public int Spacing;
 
-        public override void DrawChild(Rectangle view, SpriteBatch spriteBatch, GameTime gameTime, IDrawable child, int index)
+        public VerticalContainer(int spacing) : base()
         {
-            base.DrawChild(view, spriteBatch, gameTime, child, index);
+            Spacing = spacing;
         }
 
-        public override Rectangle GetRectangleFor(Rectangle view, IDrawable child, int index)
+        public override bool DrawChild(Rectangle view, SpriteBatch spriteBatch, GameTime gameTime, IDrawable child, int index)
         {
+            return base.DrawChild(view, spriteBatch, gameTime, child, index);
+        }
+
+        public override bool GetRectangleFor(ref Rectangle view, IDrawable child, int index)
+        {
+            Rectangle originalView = view;
+
             Vector2 size = (child as ISize).GetSize(view);
             view.Height = (int)size.Y;
             view.Width = (int)size.X;
 
-            float ySpacing = (Spacing * size.Y) * index;
-            view.Y += (int)ySpacing;
+            float yPosition = (Spacing + size.Y) * index;
+            view.Y += (int)yPosition;
 
-            return view;
+            return (view.Y + view.Height) < (originalView.Y + originalView.Height);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,9 +9,10 @@ namespace YouBeat.Objects
     {
         public List<T> Children = new List<T>();
 
-        public virtual Rectangle GetRectangleFor(Rectangle view, IDrawable child, int index)
+        /// <returns>false if drawing should stop after this object, true if drawing should continue</returns>
+        public virtual bool GetRectangleFor(ref Rectangle view, IDrawable child, int index)
         {
-            return view;
+            return true;
         }
 
         public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
@@ -18,14 +20,18 @@ namespace YouBeat.Objects
             int i = 0;
             foreach(IDrawable child in Children)
             {
-                DrawChild(rect, spriteBatch, gameTime, child, i);
+                if (!DrawChild(rect, spriteBatch, gameTime, child, i))
+                    break;
                 i++;
             }
         }
 
-        public virtual void DrawChild(Rectangle view, SpriteBatch spriteBatch, GameTime gameTime, IDrawable child, int index)
+        /// <returns>false if drawing should stop after this object, true if drawing should continue</returns>
+        public virtual bool DrawChild(Rectangle view, SpriteBatch spriteBatch, GameTime gameTime, IDrawable child, int index)
         {
-            child.Draw(GetRectangleFor(view, child, index), spriteBatch, gameTime);
+            bool ret = GetRectangleFor(ref view, child, index);
+            child.Draw(view, spriteBatch, gameTime);
+            return ret;
         }
 
         public void Update(GameTime gameTime)

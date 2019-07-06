@@ -99,6 +99,11 @@ namespace YouBeat
             beatmapStore = new BeatmapStore("Songs");
             BeatmapStoreInfo beatmapStoreInfo = new BeatmapStoreInfoRaw(testBeatmap.Metadata, testBeatmap);
             beatmapStore.Add(beatmapStoreInfo);
+            beatmapStore.Add(beatmapStoreInfo);
+            beatmapStore.Add(beatmapStoreInfo);
+            beatmapStore.Add(beatmapStoreInfo);
+            beatmapStore.Add(beatmapStoreInfo);
+            beatmapStore.Add(beatmapStoreInfo);
 
             settings = new Settings();
 

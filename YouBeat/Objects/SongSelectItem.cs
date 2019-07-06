@@ -23,7 +23,7 @@ namespace YouBeat.Objects
             this.beatmapStoreInfo = beatmapStoreInfo;
         }
 
-        public Vector2 GetSize(Rectangle view) => view.PercentagePoint(1, 1, 1, 0.1f).Size.ToVector2();
+        public Vector2 GetSize(Rectangle view) => view.PercentagePoint(1, 1, 1, 0.25f).Size.ToVector2();
 
         public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
         {

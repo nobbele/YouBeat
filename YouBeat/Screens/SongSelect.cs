@@ -27,7 +27,7 @@ namespace YouBeat.Screens
                 beatmapStore.Load();
             }
 
-            songSelectItemContainer = new VerticalContainer<SongSelectItem>();
+            songSelectItemContainer = new VerticalContainer<SongSelectItem>(5);
             songSelectItemContainer.Children.AddRange(beatmapStore.Beatmaps.Select(beatmap => new SongSelectItem(beatmap)));
 
             IsLoaded = true;
@@ -35,7 +35,7 @@ namespace YouBeat.Screens
 
         public void Draw(Rectangle rect, SpriteBatch spriteBatch, GameTime gameTime)
         {
-            songSelectItemContainer.Draw(rect.PercentagePoint(0.5f, 0, 1, 0.5f), spriteBatch, gameTime);
+            songSelectItemContainer.Draw(rect.PercentagePoint(0.4f, 0.1f, 0.5f, 0.5f), spriteBatch, gameTime);
         }
 
         public void Update(GameTime gameTime)
